@@ -1,20 +1,25 @@
-const express = require("express");
+// index.js
+
+const express = require('express');
 const app = express();
 
+app.use(express.json());
+
+// Import router
+const postsRouter = require('./routes/routes.posts');
+
+// Use the router with correct API prefix
+app.use('/api/v1/posts', postsRouter);
 app.get("/", (req, res) => {
-  res.send("Blogify API is running!");
+  res.send("Welcome to Blogify API!");
 });
 
-// NEW ROUTE
-app.get("/api/v1/posts", (req, res) => {
-  res.json({
-    success: true,
-    message: "All posts fetched successfully",
-    posts: [],
-  });
-});
 
+// Server
 const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+const HOST = "127.0.0.1"; // localhost
+
+app.listen(PORT, HOST, () => {
+ console.log(`Server running at http://${HOST}:${PORT}`);
 });
+module.exports = app;

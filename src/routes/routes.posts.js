@@ -1,8 +1,13 @@
-const express = require('express');
-const router = express.Router();
+// src/routes/posts.routes.js
 
-router.get('/', (req, res) => {
-  res.send("Fetching all blog posts from the modular router!");
-});
+const express = require("express");
+const router = express.Router();
+const postController = require("../controllers/posts.controllers");
+
+// Make sure other static routes come first!
+// Example: router.get("/", postController.getAllPosts);
+
+// NEW DYNAMIC ROUTE
+router.get("/:postId", postController.getPostById);
 
 module.exports = router;
